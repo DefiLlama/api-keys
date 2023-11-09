@@ -50,13 +50,17 @@ export default function Index() {
 
   return (
     <div className="flex flex-col my-8">
-      {!hydrated || fetchingSubs ? (
+      {!hydrated ? (
         <div className="flex flex-col mx-auto max-w-[384px] w-full my-20">
-          <p className="text-center">Fetching Subscriptions...</p>
+          <p className="text-center"></p>
         </div>
       ) : !isConnected ? (
         <div className="flex flex-col mx-auto max-w-[384px] w-full my-20">
           <p className="text-center">Connect Wallet to view your API Key</p>
+        </div>
+      ) : fetchingSubs ? (
+        <div className="flex flex-col mx-auto max-w-[384px] w-full my-20">
+          <p className="text-center">Fetching Subscriptions...</p>
         </div>
       ) : errorFetchingSubs ? (
         <div className="flex flex-col mx-auto max-w-[384px] w-full my-20">
