@@ -18,7 +18,7 @@ export async function signAndGetAuthToken({
     const siweMessage = getSIWEMessage({
       domain: window.location.host,
       address,
-      statement: `Sign in with Ethereum to sealed.art`,
+      statement: `Sign in to defillama.com to get API Key`,
       uri: window.location.origin,
       version: "1",
       chainId: optimism.id,
