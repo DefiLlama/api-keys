@@ -4,6 +4,7 @@ import { useAccount } from "wagmi";
 import { useHydrated } from "~/hooks/useHydrated";
 import { llamaAddress, subscriptionAmount } from "~/lib/constants";
 import { useSignInWithEthereum } from "~/queries/useAuthentications";
+import { useGenerateNewApiKey } from "~/queries/useGenerateApiKey";
 import { useGetCurrentKey } from "~/queries/useGetCurrentKey";
 import { useGetSubs } from "~/queries/useGetSubs";
 
@@ -47,6 +48,13 @@ export default function Index() {
     isLoading: fetchingCurrentApiKey,
     error: errorFetchingCurrentApiKey,
   } = useGetCurrentKey({ authToken });
+
+  const {
+    data: newApiKey,
+    mutate: generateApiKey,
+    isLoading: generatingApiKey,
+    isError: errorGeneratingApiKey,
+  } = useGenerateNewApiKey();
 
   return (
     <div className="flex flex-col my-8">
@@ -92,12 +100,13 @@ export default function Index() {
                 <>
                   <p>
                     <span>Current API Key</span>
-                    <span>{currentApiKey}</span>
+                    <span>{newApiKey ?? currentApiKey ?? ""}</span>
                   </p>
 
                   <button
                     className="border p-2 disabled:cursor-not-allowed text-white disabled:opacity-60"
-                    disabled
+                    onClick={() => generateApiKey?.({ authToken })}
+                    disabled={!generateApiKey || generatingApiKey}
                   >
                     Generate a New Key
                   </button>
@@ -123,7 +132,14 @@ export default function Index() {
           {errorFetchingCurrentApiKey ? (
             <p className="text-center text-red-500">
               {(errorFetchingCurrentApiKey as any)?.message ??
-                "Failed to fetch current key"}
+                "Failed to fetch current api key"}
+            </p>
+          ) : null}
+
+          {errorGeneratingApiKey ? (
+            <p className="text-center text-red-500">
+              {(errorGeneratingApiKey as any)?.message ??
+                "Failed to generate new api key"}
             </p>
           ) : null}
         </div>
