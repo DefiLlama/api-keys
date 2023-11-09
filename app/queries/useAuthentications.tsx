@@ -18,7 +18,7 @@ export async function signAndGetAuthToken({
     const siweMessage = getSIWEMessage({
       domain: window.location.host,
       address,
-      statement: `Sign in to defillama.com to get API Key`,
+      statement: `Sign in to ${window.location.host} to get API Key`,
       uri: window.location.origin,
       version: "1",
       chainId: optimism.id,
