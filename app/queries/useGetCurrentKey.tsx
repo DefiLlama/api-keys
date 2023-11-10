@@ -13,9 +13,7 @@ async function getCurrentKey(authToken?: string | null) {
       },
     });
 
-    console.log({ currentToken });
-
-    return currentToken;
+    return currentToken?.apiKey ?? null;
   } catch (error: any) {
     throw new Error(error.message ?? "Failed to fetch current api key");
   }

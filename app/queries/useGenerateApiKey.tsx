@@ -25,7 +25,7 @@ export async function generateNewApiKey({
       throw new Error("Failed to generate new api key");
     }
 
-    return newApiKey;
+    return newApiKey?.apiKey ?? null;
   } catch (error: any) {
     throw new Error(error.message);
   }

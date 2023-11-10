@@ -98,12 +98,12 @@ export default function Index() {
           {authToken ? (
             <>
               {fetchingCurrentApiKey ? (
-                <p className="text-center">Fetching current API key</p>
+                <p className="text-center">Fetching API key</p>
               ) : (
                 <>
                   <p>
-                    <span>Current API Key: </span>
-                    {/* <span>{newApiKey ?? currentApiKey ?? ""}</span> */}
+                    <span>API Key: </span>
+                    <span>{newApiKey ?? currentApiKey ?? ""}</span>
                   </p>
 
                   <button
@@ -111,7 +111,11 @@ export default function Index() {
                     onClick={() => generateApiKey?.({ authToken })}
                     disabled={!generateApiKey || generatingApiKey}
                   >
-                    {generatingApiKey ? "Generating..." : "Generate a New Key"}
+                    {generatingApiKey
+                      ? "Generating..."
+                      : currentApiKey
+                      ? "Refresh"
+                      : "Generate a New Key"}
                   </button>
                 </>
               )}
