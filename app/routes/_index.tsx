@@ -29,7 +29,6 @@ export default function Index() {
 
   useEffect(() => {
     window.addEventListener("message", (message) => {
-      console.log({ message });
       if (message.data.subscribed === true) {
         refetchSubs();
       }
@@ -99,7 +98,7 @@ export default function Index() {
               ) : (
                 <>
                   <p>
-                    <span>Current API Key</span>
+                    <span>Current API Key: </span>
                     <span>{newApiKey ?? currentApiKey ?? ""}</span>
                   </p>
 
@@ -108,7 +107,7 @@ export default function Index() {
                     onClick={() => generateApiKey?.({ authToken })}
                     disabled={!generateApiKey || generatingApiKey}
                   >
-                    Generate a New Key
+                    {generatingApiKey ? "Generating..." : "Generate a New Key"}
                   </button>
                 </>
               )}

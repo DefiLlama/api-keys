@@ -28,5 +28,6 @@ export const useGetCurrentKey = ({
 }) => {
   return useQuery(["currentKey", authToken], () => getCurrentKey(authToken), {
     enabled: authToken ? true : false,
+    retry: 1,
   });
 };
