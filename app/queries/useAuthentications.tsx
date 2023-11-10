@@ -96,6 +96,8 @@ export async function signAndGetAuthToken({
       throw new Error("Failed to generate auth token");
     }
 
+    window.localStorage.setItem(`auth_token_${address}`, verifyRes.key);
+
     return verifyRes.key;
   } catch (error: any) {
     throw new Error(error.message);
