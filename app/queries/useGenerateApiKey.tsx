@@ -19,8 +19,6 @@ export async function generateNewApiKey({
       },
     });
 
-    console.log({ newApiKey });
-
     if (!newApiKey) {
       throw new Error("Failed to generate new api key");
     }
