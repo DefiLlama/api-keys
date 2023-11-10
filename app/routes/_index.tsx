@@ -3,7 +3,10 @@ import { useEffect } from "react";
 import { useAccount } from "wagmi";
 import { useHydrated } from "~/hooks/useHydrated";
 import { llamaAddress, subscriptionAmount } from "~/lib/constants";
-import { useSignInWithEthereum } from "~/queries/useAuthentications";
+import {
+  useGetAuthToken,
+  useSignInWithEthereum,
+} from "~/queries/useAuthentications";
 import { useGenerateNewApiKey } from "~/queries/useGenerateApiKey";
 import { useGetCurrentKey } from "~/queries/useGetCurrentKey";
 import { useGetSubs } from "~/queries/useGetSubs";
@@ -35,13 +38,14 @@ export default function Index() {
     });
   }, [refetchSubs]);
 
+  const { data: currentAuthToken } = useGetAuthToken();
   const {
-    data: authToken,
+    data: authTokenAfterSigningIn,
     mutate: signIn,
     isLoading: signingIn,
     isError: errorSigningIn,
   } = useSignInWithEthereum();
-
+  const authToken = currentAuthToken || authTokenAfterSigningIn;
   const {
     data: currentApiKey,
     isLoading: fetchingCurrentApiKey,
@@ -99,7 +103,7 @@ export default function Index() {
                 <>
                   <p>
                     <span>Current API Key: </span>
-                    <span>{newApiKey ?? currentApiKey ?? ""}</span>
+                    {/* <span>{newApiKey ?? currentApiKey ?? ""}</span> */}
                   </p>
 
                   <button
