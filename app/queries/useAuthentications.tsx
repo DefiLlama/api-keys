@@ -39,13 +39,11 @@ export async function signAndGetAuthToken({
       body: JSON.stringify({ message: siweMessage, signature: data }),
     });
 
-    console.log({ verifyRes });
-
-    if (!verifyRes["auth_token"]) {
+    if (!verifyRes.key) {
       throw new Error("Failed to generate auth token");
     }
 
-    return verifyRes["auth_token"];
+    return verifyRes.key;
   } catch (error: any) {
     throw new Error(error.message);
   }
