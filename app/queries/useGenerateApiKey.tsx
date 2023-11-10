@@ -12,7 +12,7 @@ export async function generateNewApiKey({
       throw new Error("Not Authorized");
     }
 
-    const newApiKey = await fetchX(`${SERVER_API}/auth/api-key`, {
+    const newApiKey = await fetchX(`${SERVER_API}/auth/generate`, {
       method: "POST",
       headers: {
         authorization: authToken,
